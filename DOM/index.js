@@ -12,6 +12,7 @@ function actualizarResultado(){
 function clickCounter(){
     valorInicial++;
     console.log(valorInicial)
+    //----Era al revés jajaja sorry, me confundí >n<
  actualizarResultado(); 
 }
 
