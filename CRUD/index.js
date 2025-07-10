@@ -28,25 +28,36 @@ function render(){
     array.forEach(function(elemento, index){
         verDatos.innerHTML += `
              <div>
-            <table>
+            <table class="table">
                 <thead>
-                    <th>Nombre</th>
-                    <th>Materia</th>
-                    <th>Calificacion</th>
-                    <th>Correo</th>
+                    <th scope="col>Nombre</th>
+                    <th scope="col>Materia</th>
+                    <th scope="col>Calificacion</th>
+                    <th scope="col>Correo</th>
                 </thead>
                 <tbody>
-                    <td>${elemento.nombre}</td>
-                     <td>${elemento.materia}</td>
-                      <td>${elemento.calificacion}</td>
-                       <td>${elemento.correo}</td>
-                        <td><button onclick="editar(${index})"> Editar</button></td>
-                         <td><button>Borrar</button></td>
+                    <td scope="row>${elemento.nombre}</td>
+                     <td scope="row>${elemento.materia}</td>ls
+                      <td scope="row>${elemento.calificacion}</td>
+                       <td scope="row>${elemento.correo}</td>
+                        <td scope="row"><button class="btn-warning"onclick="editar(${index})"> Editar</button></td>
+                         <td scope="row"><button onclick="borrar(${index})">Borrar</button></td>
                 </tbody>
             </table>
         </div>
         `
     })
+
+    document.getElementById("nombre").value = ""
+    document.getElementById("materia").value = ""
+    document.getElementById("calificacion").value = ""
+    document.getElementById("correo").value = ""
+}
+
+function borrar(i){
+    console.log(array.splice(i, 1))
+    localStorage.setItem("canasta", JSON.stringify(array))
+    render()
 }
 
 function editar(index){
@@ -56,14 +67,17 @@ function editar(index){
             document.getElementById("materia").value = array[i].materia
             document.getElementById("calificacion").value = array[i].calificacion
             document.getElementById("correo").value = array[i].correo
+
+         let verDatos = document.getElementById("mostrar")
+             verDatos.innerHTML = `
+        <td><button onclick="reguardar(${i})">Guardar</button><td>
+        <td><button onclick="salir(this)">Salir</button><td>
+     `
         }
+
     }
      
-    let verDatos = document.getElementById("mostrar")
-    verDatos.innerHTML = `
-    <td><button onclick="reguardar(${i})">Guardar</button><td>
-    <td><button>Salir</button><td>
-    `
+ 
 }
 
 function reguardar(i){
@@ -88,3 +102,13 @@ function reguardar(i){
     render()
 
 }
+
+function salir(e){
+console.log(e)
+// e.target.reload()
+// const parent = e.currentTarget.parentNode;
+// parent.remove()
+// e.parentElement.parentElement.remove()
+render()
+}
+
